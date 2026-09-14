@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Environment / secrets
+.env
+.env.*
+*.key
+*.pem
+
+# ML / experiment cache
+.mlflow/
+mlruns/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+
+# Python cache
+.pytest_cache/
+
+# Large datasets
+*.xlsx
+*.xls
+*.csv
+
+# Local model/cache files if very large
+__pycache__/
