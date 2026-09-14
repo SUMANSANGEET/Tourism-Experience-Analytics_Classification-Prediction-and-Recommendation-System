@@ -47,7 +47,7 @@ except Exception:
 warnings.filterwarnings("ignore")
 
 RANDOM_STATE = 42
-DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "dataset")
+DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "Tourism Dataset")
 ARTIFACT_DIR = os.path.join(os.path.dirname(__file__), "..", "artifacts")
 os.makedirs(ARTIFACT_DIR, exist_ok=True)
 

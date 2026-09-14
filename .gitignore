@@ -2,10 +2,11 @@
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyd
 
 # Virtual environments
-venv/
 .venv/
+venv/
 env/
 ENV/
 
@@ -15,36 +16,49 @@ ENV/
 # Streamlit
 .streamlit/secrets.toml
 
-# Environment / secrets
-.env
-.env.*
-*.key
-*.pem
-
-# ML / experiment cache
-.mlflow/
-mlruns/
-*.log
+# IDE
+.vscode/
+.idea/
 
 # OS
 .DS_Store
 Thumbs.db
 
+# Python environments
+*.egg-info/
+dist/
+build/
+
+# Logs
+*.log
+
 # Temporary files
 *.tmp
 *.temp
 
-# IDE
-.vscode/
-.idea/
+# Secrets
+.env
+.env.*
+!.env.example
 
-# Python cache
+# Machine learning temporary files
+*.joblib
+*.pickle
+*.pkl
+
+# Large generated artifacts
+*.h5
+*.keras
+*.onnx
+
+# Cache
+.cache/
 .pytest_cache/
 
-# Large datasets
-*.xlsx
-*.xls
-*.csv
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
 
-# Local model/cache files if very large
-__pycache__/
+# Excel temporary files
+~$*.xlsx
