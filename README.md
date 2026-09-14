@@ -1,384 +1,488 @@
 # 🌍 Tourism Experience Analytics
 
-<<<<<<< HEAD
-An interactive tourism intelligence platform built on a real 52,930-transaction,
-33,530-user, 8-table tourism dataset (Bali, Yogyakarta, and Malang attractions).
-Originally a 5-page classification/regression/recommendation app; this version
-expands it into a full 8-page tourism intelligence product — global filters,
-automated insights, a traveler 360° profile, an AI trip planner, SHAP
-explainability, and deep model diagnostics — while keeping every original
-prediction and recommendation exactly as trained (no retraining involved).
-
-## What's inside
-
-| Page | What it does |
-|---|---|
-| 🏝️ **Executive Dashboard** | KPI cards + automated, dynamically-computed insight cards. Reacts to the global filter panel. |
-| 📊 **Interactive Analytics** | Tabs: Attraction Analytics (with "why is this attraction popular?" breakdowns), Geography (choropleth map, click a country to filter), Trends & Ratings (+ a Sankey customer-journey diagram), Customer Behaviour (KMeans segments + business strategy per segment). |
-| 👤 **Traveler 360°** | Full profile for any returning traveler — visit history, rating trend, favourite category/mode, segment, and personalized recommendations. |
-| 🧭 **Predict Visit Mode** | The original classifier, plus confidence tiers (🟢/🟡/🔴), a SHAP "why did the model predict this?" breakdown, and a live what-if scenario simulator. |
-| 🎯 **Recommend Attractions** | The original 3 recommendation modes (collaborative / content-similarity / new-visitor), now with richer cards (rating, visit count, "best suited for", popularity percentile, "why this recommendation?"), plus a side-by-side method comparison. |
-| 🗺️ **AI Trip Planner** | Pick a category, travel mode, trip length, and minimum rating — get a day-by-day itinerary. |
-| 🧪 **Model Performance** | Regression + classification model comparisons (now including the actually-deployed LightGBM models — see note below), confusion matrix, ROC curves, per-class F1 breakdown, feature importance, actual-vs-predicted scatter, residuals. |
-| 💼 **Business Insights** | Automated insight generator (nothing hardcoded — every line is computed from the live data), segment strategy table, business recommendations, and CSV/HTML report downloads. |
-
-## Two things I fixed while extending this
-
-1. **`requirements.txt` was missing `lightgbm`.** `utils.py` already imported it
-   and the shipped `best_classifier.pkl` / `best_regressor.pkl` are both
-   LightGBM models — so a fresh `pip install -r requirements.txt` would have
-   installed fine but the app would have crashed on the first import. Added
-   `lightgbm` and `shap` (needed for the new explainability feature).
-2. **The Model Performance comparison table didn't include the deployed
-   model.** `lookup_tables.pkl`'s `reg_results_df` / `cls_results_df` only
-   list Random Forest / XGBoost / Gradient Boosting — but the actual
-   `best_regressor.pkl` / `best_classifier.pkl` are LightGBM models that beat
-   all three (reconstructed weighted F1 ≈ 0.47 vs. the table's best entry of
-   ≈ 0.46). The Model Performance page now reconstructs the exact original
-   held-out test split (same cleaning, same saved encoders, same
-   `random_state=42` split) and adds a row for the model that's actually
-   running, so what recruiters see matches what the app does. Also fixed
-   `pipeline/train_pipeline.py`'s `DATA_DIR`, which pointed at a `dataset/`
-   folder that doesn't exist in this project (the real folder is
-   `Tourism Dataset/`).
-=======
-### Classification • Prediction • Recommendation • Explainable AI • Interactive Streamlit Analytics
-
-<p align="center">
-
-**An end-to-end Machine Learning and Analytics platform for understanding traveler behavior, predicting tourism ratings, classifying visit modes, and recommending relevant attractions.**
-
-</p>
->>>>>>> 914fdf4d29592aa927cae4e3e28c76814d36f7af
+### Classification • Rating Prediction • Recommendation • Interactive Business Intelligence
 
 <p align="center">
 
 <a href="https://ida8jsmnknyqdvtkqeafcd.streamlit.app/">
-<img src="https://img.shields.io/badge/🚀%20LIVE%20DEMO-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+<img src="https://img.shields.io/badge/🚀%20Live%20Demo-Streamlit-FF4B4B?style=for-the-badge" alt="Live Demo"/>
 </a>
 
-<img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-<img src="https://img.shields.io/badge/Pandas-Analytics-150458?style=for-the-badge&logo=pandas&logoColor=white"/>
-<img src="https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
-<img src="https://img.shields.io/badge/Plotly-Interactive%20Visuals-3F4F75?style=for-the-badge&logo=plotly&logoColor=white"/>
-<img src="https://img.shields.io/badge/Streamlit-Deployment-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+<a href="https://github.com/SUMANSANGEET/Tourism-Experience-Analytics_Classification-Prediction-and-Recommendation-System">
+<img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github" alt="GitHub"/>
+</a>
+
+<img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+
+<img src="https://img.shields.io/badge/Streamlit-Interactive%20Analytics-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
+
+<img src="https://img.shields.io/badge/Machine%20Learning-Predictive%20Analytics-8A2BE2?style=for-the-badge" alt="Machine Learning"/>
+
+</p>
+
+<p align="center">
+
+<b>Transforming tourism data into actionable traveler insights, predictive intelligence, and personalized recommendations.</b>
 
 </p>
 
 ---
 
-## 🚀 Live Interactive Application
+## 🚀 Live Interactive Experience
 
-### 👉 [🌐 Open Tourism Experience Analytics — Live Streamlit App](https://ida8jsmnknyqdvtkqeafcd.streamlit.app/)
+### 🎯 Explore the deployed application
 
-> **Explore the dashboard interactively:** analyze tourism behavior, explore attraction performance, evaluate machine-learning models, generate predictions, and discover recommendations.
+👉 **[Launch Tourism Experience Analytics](https://ida8jsmnknyqdvtkqeafcd.streamlit.app/)**
+
+The application converts raw tourism transaction and attraction data into an interactive analytics platform where users can explore:
+
+* 📊 Traveler demographics and behavior
+* 🌍 Geographic tourism patterns
+* ⭐ Attraction ratings
+* 🧭 Visit-mode preferences
+* 🏙️ Destination performance
+* 📈 Tourism trends
+* 🤖 Machine-learning predictions
+* 🎯 Personalized attraction recommendations
+* 🔍 Model explainability and performance
+
+> **Goal:** Move beyond descriptive dashboards toward a decision-support system that answers **what happened, why it happened, what may happen next, and what should be recommended.**
 
 ---
 
-# 🎯 Executive Summary
+# 🧭 Executive Overview
 
-**Tourism Experience Analytics** is an end-to-end **Data Analytics + Machine Learning + Recommendation System** developed to convert complex tourism data into actionable business intelligence.
+Tourism businesses generate large volumes of information across travelers, destinations, attractions, countries, regions, visit modes, and ratings.
 
-The platform answers three core questions:
+However, raw tourism data does not automatically answer critical business questions:
 
-### ⭐ 1. What happened?
+> **Who are our travelers?**
 
-Understand historical tourism behavior through interactive analytics and visualizations.
+> **What destinations and attractions drive engagement?**
 
-### 🔮 2. What is likely to happen?
+> **What factors influence ratings?**
 
-Predict attraction ratings and classify traveler visit modes using machine-learning models.
+> **Which visit mode is likely for a traveler?**
 
-### 🎯 3. What should the traveler explore next?
+> **What attraction should we recommend next?**
 
-Generate attraction recommendations using a content-based recommendation approach.
+This project addresses these questions by combining:
+
+**Business Intelligence + Exploratory Data Analysis + Machine Learning + Recommendation Systems + Interactive Visualization**
+
+into a single recruiter-friendly analytics platform.
 
 ---
 
 # 💼 Business Problem
 
-Tourism organizations collect large amounts of data about:
+Tourism organizations need to understand traveler behavior in order to:
 
-* Travelers
-* Attractions
-* Cities
-* Countries
-* Regions
-* Continents
-* Visit modes
-* Ratings
-* Attraction categories
-* Historical interactions
+* Improve destination experiences
+* Identify high-performing attractions
+* Understand customer preferences
+* Predict traveler ratings
+* Segment visitors
+* Optimize tourism offerings
+* Personalize attraction recommendations
+* Support marketing and destination planning
 
-But raw data does not automatically provide business value.
-
-The challenge is to transform this information into a system capable of:
+### Traditional approach
 
 ```text
-RAW TOURISM DATA
-       │
-       ▼
-DATA QUALITY & CLEANING
-       │
-       ▼
-EXPLORATORY ANALYTICS
-       │
-       ▼
-BUSINESS INSIGHTS
-       │
-       ├───────────────┐
-       ▼               ▼
-PREDICTION       CLASSIFICATION
-       │               │
-       └───────┬───────┘
-               ▼
-       RECOMMENDATION
-               │
-               ▼
-       EXPLAINABLE AI
-               │
-               ▼
-       INTERACTIVE APP
-               │
-               ▼
-       BUSINESS DECISIONS
-```
-<<<<<<< HEAD
-├── app.py                     # Entry point: theme, global filters, page routing
-├── utils.py                   # Original artifact loading, prediction & recommendation logic (unchanged)
-├── advanced.py                 # New: split reconstruction, SHAP, insights, trip planner, traveler profiles, downloads
-├── filters.py                  # Global filter panel widget + apply logic
-├── page_views/                 # One module per page (see table above)
-├── artifacts/                  # Pre-trained models & lookup tables (pickled) — loaded at runtime, no training
-├── pipeline/train_pipeline.py   # Full retraining pipeline (only needed if you change the data/features)
-├── Tourism Dataset/             # Raw source tables — only read by the Model Performance page (to reconstruct
-│                                 the eval split) and by train_pipeline.py (if you retrain)
-├── .streamlit/config.toml       # App theme
-└── requirements.txt
+Raw Tourism Data
+       ↓
+Static Reports
+       ↓
+Historical Insights
 ```
 
-The app loads everything from `artifacts/` at startup — **no training happens
-at request time.** The Model Performance page does a one-time (cached)
-reconstruction of the original train/test split from `Tourism Dataset/` to
-compute confusion matrices, ROC curves, and SHAP values against genuinely
-held-out data, using the *already-trained* models — it does not retrain
-anything.
-
-To regenerate the artifacts after changing the pipeline or refreshing the
-data:
-=======
-
----
-
-# 🌟 What Makes This Project Different?
-
-This is **not just an EDA project**.
-
-It combines multiple stages of a real-world analytics workflow:
-
-| Capability               | Implementation                         |
-| ------------------------ | -------------------------------------- |
-| 📊 Data Analytics        | Tourism behavior & attraction analysis |
-| 🧹 Data Engineering      | Cleaning, validation & integration     |
-| 📈 Business Intelligence | KPI-driven visual analytics            |
-| 🤖 Regression            | Attraction rating prediction           |
-| 🧭 Classification        | Visit-mode prediction                  |
-| 🎯 Recommendation        | Personalized attraction discovery      |
-| 🔍 Explainable AI        | Feature importance / SHAP              |
-| 🧪 Model Benchmarking    | Multiple candidate models              |
-| 🖥️ Deployment           | Interactive Streamlit application      |
-| 📦 Version Control       | Git + GitHub                           |
-
----
-
-# 🧭 Application Journey
-
-The application follows a business-user-friendly analytical journey:
+### This project
 
 ```text
-┌──────────────────────────────┐
-│       🌍 TOURISM DATA        │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│      📊 EXPLORE DATA         │
-│  KPIs • Trends • Geography   │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│      🏛️ EXPLORE ATTRACTIONS │
-│ Ratings • Types • Popularity │
-└──────────────┬───────────────┘
-               ▼
-       ┌───────┴────────┐
-       ▼                ▼
-┌─────────────┐   ┌─────────────┐
-│ ⭐ PREDICT  │   │ 🧭 CLASSIFY │
-│   RATING    │   │ VISIT MODE  │
-└──────┬──────┘   └──────┬──────┘
-       └────────┬─────────┘
-                ▼
-       ┌──────────────────┐
-       │ 🎯 RECOMMEND     │
-       │   ATTRACTIONS    │
-       └────────┬─────────┘
-                ▼
-       ┌──────────────────┐
-       │ 🔍 EXPLAIN MODEL │
-       └──────────────────┘
+Raw Tourism Data
+       ↓
+Data Quality & Preparation
+       ↓
+Exploratory Analytics
+       ↓
+Business Intelligence
+       ↓
+Predictive Modeling
+       ↓
+Classification
+       ↓
+Recommendation Engine
+       ↓
+Interactive Decision Support
 ```
 
 ---
 
-# 📊 Interactive Analytics
+# 🎯 Project Objectives
 
-The dashboard is designed around **interactive visual storytelling** rather than static tables.
+### 01 — Understand Traveler Behavior
 
-## 👥 Traveler Analytics
+Analyze:
 
-Explore:
+* Traveler origin
+* Destination
+* Visit mode
+* Attraction category
+* Rating behavior
+* Geographic patterns
 
+### 02 — Identify Tourism Performance Drivers
+
+Discover:
+
+* Top attractions
+* Popular attraction categories
+* High-performing destinations
+* Rating patterns
+* Visit-mode trends
+
+### 03 — Predict Traveler Ratings
+
+Build regression models capable of estimating attraction ratings from available traveler and attraction attributes.
+
+### 04 — Classify Visit Mode
+
+Predict likely traveler visit modes such as:
+
+* Family
+* Business
+* Couples
+* Solo
+* Other available categories
+
+### 05 — Personalize Recommendations
+
+Recommend relevant attractions using content-based similarity and attraction metadata.
+
+### 06 — Enable Interactive Decision Making
+
+Deliver insights through a Streamlit-based analytics platform rather than static charts.
+
+---
+
+# 📊 Analytics Questions Answered
+
+The platform is designed around real-world business questions.
+
+| Business Question                           | Analytical Solution           |
+| ------------------------------------------- | ----------------------------- |
+| Where do travelers originate?               | Geographic analysis           |
+| Which attractions are most popular?         | Attraction ranking            |
+| Which attractions receive stronger ratings? | Rating analysis               |
+| What visit modes dominate?                  | Classification & segmentation |
+| Which regions generate tourism activity?    | Regional analysis             |
+| How do traveler types differ?               | Behavioral analysis           |
+| What influences ratings?                    | Predictive modeling           |
+| What visit mode might a traveler belong to? | Classification                |
+| What attraction should be recommended?      | Recommendation engine         |
+| How reliable are the models?                | Model benchmarking            |
+
+---
+
+# 🏗️ Solution Architecture
+
+```text
+                    ┌───────────────────────┐
+                    │   Tourism Data Files  │
+                    │                       │
+                    │ Transaction           │
+                    │ User                  │
+                    │ City                  │
+                    │ Country               │
+                    │ Region                │
+                    │ Continent             │
+                    │ Mode                  │
+                    │ Type                  │
+                    │ Attraction Metadata   │
+                    └───────────┬───────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Data Quality & ETL    │
+                    │                       │
+                    │ Cleaning              │
+                    │ Validation            │
+                    │ Missing Values        │
+                    │ Data Integration      │
+                    └───────────┬───────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Master Tourism Table  │
+                    └───────────┬───────────┘
+                                │
+              ┌─────────────────┼─────────────────┐
+              ▼                 ▼                 ▼
+       ┌─────────────┐   ┌─────────────┐   ┌──────────────┐
+       │     EDA     │   │ ML Models   │   │ Recommender  │
+       │             │   │             │   │              │
+       │ Trends      │   │ Regression  │   │ Similarity   │
+       │ Ratings     │   │ Classifier  │   │ Attractions  │
+       │ Geography   │   │ Prediction  │   │ Personalize  │
+       └──────┬──────┘   └──────┬──────┘   └──────┬───────┘
+              │                 │                 │
+              └─────────────────┼─────────────────┘
+                                ▼
+                    ┌───────────────────────┐
+                    │ Interactive Streamlit │
+                    │ Analytics Platform    │
+                    └───────────┬───────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Business Decisions    │
+                    │ & Traveler Insights   │
+                    └───────────────────────┘
+```
+
+---
+
+# 🗂️ Data Ecosystem
+
+The project integrates multiple tourism datasets.
+
+| Dataset             | Purpose                           |
+| ------------------- | --------------------------------- |
+| `Transaction.xlsx`  | Traveler-attraction interactions  |
+| `User.xlsx`         | Traveler information              |
+| `City.xlsx`         | City-level geographic information |
+| `Country.xlsx`      | Country mapping                   |
+| `Region.xlsx`       | Regional hierarchy                |
+| `Continent.xlsx`    | Continental hierarchy             |
+| `Mode.xlsx`         | Visit-mode lookup                 |
+| `Type.xlsx`         | Attraction-type lookup            |
+| `Updated_Item.xlsx` | Enriched attraction metadata      |
+
+### Data Engineering Workflow
+
+```text
+Multiple Excel Sources
+        ↓
+Schema Inspection
+        ↓
+Data Quality Audit
+        ↓
+Missing-Value Analysis
+        ↓
+Data Type Standardization
+        ↓
+Lookup Integration
+        ↓
+Feature Engineering
+        ↓
+Master Analytical Dataset
+```
+
+---
+
+# 🧹 Data Quality & Preparation
+
+The analytical pipeline includes:
+
+* Missing-value assessment
+* Duplicate detection
+* Data-type validation
+* Lookup-table integration
+* Categorical normalization
+* Numerical feature preparation
+* Relationship validation
+* Feature engineering
+* Analytical dataset creation
+
+### Data Quality Principle
+
+> **Reliable analytics starts with reliable data.**
+
+Rather than immediately training models, the project first establishes a consistent analytical foundation.
+
+---
+
+# 📈 Exploratory Data Analysis
+
+The EDA layer focuses on discovering behavioral and business patterns.
+
+## 🌍 Traveler Geography
+
+Analyze:
+
+* Country of origin
+* Region
+* Continent
+* Destination
 * Traveler distribution
-* Origin patterns
-* Visit behavior
-* Traveler segmentation
-* Visit-mode composition
 
-### Questions answered
+### Business Insight
 
-> Which traveler groups are most represented?
-
-> Which visit modes dominate?
-
-> How does traveler behavior differ across destinations?
+Geographic patterns can help tourism organizations understand where their visitors originate and which markets may require targeted campaigns.
 
 ---
 
-# 🌍 Geographic Intelligence
+# 🧭 Visit Mode Analysis
 
-Analyze tourism patterns across:
+Analyze the distribution of traveler behavior across available visit modes.
+
+Example analytical questions:
+
+* Which visit mode dominates?
+* How does visit mode differ by region?
+* Are business travelers concentrated in specific destinations?
+* Which destinations attract more family or solo travelers?
+
+---
+
+# ⭐ Rating Distribution
+
+Understand:
+
+* Average rating
+* Rating frequency
+* High-rated attractions
+* Low-rated attractions
+* Rating patterns by attraction type
+
+### Customer Engagement Perspective
+
+Ratings provide a behavioral signal that can be used to identify:
+
+> **What travelers value, what experiences perform well, and where experience quality may need improvement.**
+
+---
+
+# 🏆 Attraction Performance
+
+The platform can identify high-performing attractions using:
+
+* Rating
+* Number of reviews/interactions
+* Attraction category
+* Geographic location
+
+Rather than ranking attractions only by average rating, the analysis can consider minimum interaction thresholds to reduce misleading rankings from attractions with very few observations.
+
+---
+
+# 📅 Tourism Trends
+
+Time-based analysis helps identify:
+
+* Seasonal patterns
+* Changes in traveler activity
+* Rating trends
+* Visit-mode changes
+* Destination demand patterns
+
+These insights can support:
+
+* Capacity planning
+* Marketing campaigns
+* Staffing decisions
+* Destination management
+
+---
+
+# 🔗 Relationship Analysis
+
+The project explores relationships between variables such as:
 
 ```text
-🌎 Continent
-   ↓
-🌏 Region
-   ↓
-🇺🇳 Country
-   ↓
-🏙️ City
+Traveler Characteristics
+        ↓
+Visit Mode
+        ↓
+Attraction Type
+        ↓
+Destination
+        ↓
+Rating
 ```
 
-### Business questions
-
-* Which destinations attract the most visitors?
-* Which regions show stronger tourism activity?
-* How do attraction ratings differ geographically?
-* Which destinations could represent growth opportunities?
+Correlation and comparative analysis help identify potential relationships between traveler behavior, attraction characteristics, and experience ratings.
 
 ---
 
-# 🏛️ Attraction Analytics
+# 🤖 Machine Learning Layer
 
-Analyze attraction-level performance through:
-
-* ⭐ Rating distributions
-* 🏆 Top-rated attractions
-* 📊 Popularity
-* 🏷️ Attraction categories
-* 📍 Geographic distribution
-* 📈 Historical performance
-
-A minimum-review threshold can also be applied when identifying top attractions to avoid misleading results from attractions with very few ratings.
+The project contains two major predictive components.
 
 ---
 
-# ⭐ Rating Prediction
-
-## Regression Problem
+## 📈 1. Rating Prediction — Regression
 
 ### Objective
 
-Predict the expected rating of an attraction using available tourism, traveler, geographic, and behavioral features.
+Predict a traveler's attraction rating based on available analytical features.
+
+### Workflow
 
 ```text
-INPUT FEATURES
-      │
-      ▼
-FEATURE ENGINEERING
-      │
-      ▼
-REGRESSION MODELS
-      │
-      ▼
-MODEL BENCHMARKING
-      │
-      ▼
-BEST MODEL
-      │
-      ▼
-PREDICTED RATING
+Features
+   ↓
+Preprocessing
+   ↓
+Train / Validation / Test
+   ↓
+Candidate Models
+   ↓
+Model Benchmarking
+   ↓
+Best Model Selection
+   ↓
+Rating Prediction
 ```
 
 ### Evaluation Metrics
 
-The regression workflow evaluates models using:
+The regression pipeline can evaluate models using:
 
-* **R²**
-* **MAE**
-* **RMSE**
+* R²
+* MAE
+* RMSE
 
-### Why it matters
+### Why these metrics?
 
-Rating prediction can help tourism businesses:
+**R²**
 
-* Identify attractions with strong predicted performance
-* Understand rating-driving variables
-* Prioritize experience improvements
-* Support attraction ranking
-* Improve destination discovery
+Measures the proportion of variance explained by the model.
+
+**MAE**
+
+Shows average absolute prediction error.
+
+**RMSE**
+
+Penalizes larger prediction errors more strongly.
 
 ---
 
-# 🧭 Visit Mode Classification
+# 🧭 2. Visit Mode Classification
 
-## Classification Problem
+### Objective
 
-The system predicts a traveler's likely visit mode from relevant tourism characteristics.
-
-Examples include:
+Predict the likely visit mode of a traveler based on available features.
 
 ```text
-👨‍💼 Business
-👨‍👩‍👧 Family
-🧍 Solo
-👫 Couples
-👥 Groups
-```
-
-### Machine Learning Workflow
-
-```text
-Traveler / Tourism Features
-             │
-             ▼
+Traveler / Attraction Features
+            ↓
       Feature Engineering
-             │
-             ▼
-      Candidate Models
-             │
-             ▼
-      Model Benchmarking
-             │
-             ▼
-       Best Classifier
-             │
-             ▼
-    Predicted Visit Mode
+            ↓
+       Classification
+            ↓
+     Model Benchmarking
+            ↓
+      Best Classifier
+            ↓
+ Predicted Visit Mode
 ```
 
 ### Evaluation
 
-Classification performance can be examined using:
+Classification performance can be evaluated using:
 
 * Accuracy
 * Precision
@@ -386,354 +490,298 @@ Classification performance can be examined using:
 * F1-score
 * Confusion Matrix
 
-### Business Value
-
-Visit-mode prediction enables:
-
-* Traveler segmentation
-* Personalized marketing
-* Targeted campaigns
-* Recommendation personalization
-* Customer-experience optimization
+The goal is not simply to maximize accuracy, but to understand how well the model performs across different traveler categories.
 
 ---
 
-# 🎯 Attraction Recommendation Engine
+# 🏆 Model Benchmarking
 
-The platform also includes a **content-based recommendation system**.
-
-## Recommendation Logic
+Instead of assuming a single algorithm is best, candidate models are compared systematically.
 
 ```text
-Traveler Preferences
-        +
+Candidate Models
+       ↓
+Cross-Model Evaluation
+       ↓
+Performance Comparison
+       ↓
+Best Model Selection
+       ↓
+Production Model
+```
+
+This approach demonstrates a practical machine-learning workflow:
+
+> **Experiment → Evaluate → Compare → Select → Deploy**
+
+---
+
+# 🎯 Recommendation Engine
+
+One of the key customer-engagement features is the attraction recommendation component.
+
+### Recommendation concept
+
+```text
+Selected Attraction
+        ↓
 Attraction Metadata
-        +
-Available Historical Signals
-        │
-        ▼
+        ↓
 Feature Representation
-        │
-        ▼
+        ↓
 Similarity Calculation
-        │
-        ▼
-Candidate Attractions
-        │
-        ▼
-Ranking
-        │
-        ▼
-🎯 Recommended Attractions
+        ↓
+Rank Similar Attractions
+        ↓
+Recommended Attractions
 ```
 
-### Recommendation output can include
+Recommendations can leverage attraction metadata such as:
 
-```text
-🏛️ Attraction
-📍 Location
-⭐ Rating
-🏷️ Attraction Type
-🌎 Region
-📊 Relevance
-```
+* Attraction type
+* Destination
+* Category
+* Location
+* Other available descriptive attributes
 
-### Cold-Start Strategy
+### Customer Engagement Value
 
-When sufficient traveler history is unavailable, the system can use attraction metadata and popularity-related signals as a fallback.
+Instead of asking:
 
-This makes the recommendation component more practical for new users.
+> "What attractions are popular?"
+
+the platform moves toward:
+
+> **"What attraction is relevant to this traveler or selected experience?"**
+
+This creates a more personalized tourism experience.
 
 ---
 
-# 🔍 Explainable AI
+# 🧠 Recommendation Strategy
 
-A prediction is more useful when users can understand **why** the model made it.
+The system follows a content-based approach.
 
-The project incorporates explainability through feature-importance analysis and SHAP-based analysis where supported by the installed environment.
+### Example
 
-### Instead of:
+If a traveler selects:
 
-```text
-Prediction = 4.3
-```
+**Historical Museum**
 
-The objective is to provide:
+the system can search for attractions with similar characteristics and return:
 
 ```text
-Prediction = 4.3
-
-+
-Important contributing features
-
-+
-Model explanation
+Recommended Attraction #1
+Recommended Attraction #2
+Recommended Attraction #3
+Recommended Attraction #4
+Recommended Attraction #5
 ```
 
-This helps bridge the gap between:
-
-**Machine Learning → Business Understanding**
+This creates an experience-discovery workflow rather than a simple static ranking.
 
 ---
 
-# 🧪 Model Performance Laboratory
+# 📊 Interactive Dashboard Experience
 
-The application includes model-performance analysis to compare candidate models before selecting the model used by the application.
+The Streamlit application is designed to encourage exploration.
 
-### Regression
+Users can interact with analytical components rather than simply reading static reports.
 
-```text
-Candidate Model 1 ──► R² / MAE / RMSE
-Candidate Model 2 ──► R² / MAE / RMSE
-Candidate Model 3 ──► R² / MAE / RMSE
-                         │
-                         ▼
-                    🏆 WINNER
-```
-
-### Classification
+### Potential exploration flow
 
 ```text
-Candidate Model 1 ──► Accuracy / F1
-Candidate Model 2 ──► Accuracy / F1
-Candidate Model 3 ──► Accuracy / F1
-                         │
-                         ▼
-                    🏆 WINNER
-```
-
-This creates a reproducible:
-
-> **Benchmark → Compare → Select → Deploy**
-
-workflow.
-
----
-
-# 🧹 Data Quality & Preparation
-
-Before modeling, the project performs a structured data-quality workflow.
-
-```text
-RAW DATA
-   │
-   ▼
-Schema Inspection
-   │
-   ▼
-Missing Values
-   │
-   ▼
-Duplicates
-   │
-   ▼
-Data Types
-   │
-   ▼
-Category Validation
-   │
-   ▼
-Relationship Validation
-   │
-   ▼
-Cleaning & Transformation
-   │
-   ▼
-MASTER DATASET
-```
-
-### Key activities
-
-* Missing-value analysis
-* Duplicate detection
-* Data-type correction
-* Category standardization
-* Lookup validation
-* Relationship checks
-* Feature engineering
-* Outlier investigation
-* Multi-table integration
-
----
-
-# 🔗 Data Architecture
-
-The project integrates multiple tourism datasets to create a richer analytical model.
-
-### Data sources include
-
-```text
-Transaction.xlsx
-User.xlsx
-City.xlsx
-Country.xlsx
-Region.xlsx
-Continent.xlsx
-Mode.xlsx
-Type.xlsx
-Updated_Item.xlsx
-```
-
-Conceptually:
-
-```text
-                    ┌──────────────┐
-                    │     USER     │
-                    └──────┬───────┘
-                           │
-                           ▼
-┌─────────────┐     ┌───────────────┐     ┌──────────────┐
-│    CITY     │────►│ TRANSACTION   │◄────│  ATTRACTION  │
-└──────┬──────┘     └───────────────┘     └──────┬───────┘
-       │                                          │
-       ▼                                          ▼
-┌─────────────┐                             ┌──────────────┐
-│  COUNTRY    │                             │ ATTRACTION   │
-└──────┬──────┘                             │    TYPE      │
-       │                                    └──────────────┘
-       ▼
-┌─────────────┐
-│   REGION    │
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│  CONTINENT  │
-└─────────────┘
+🌍 Explore Geography
+        ↓
+🧭 Understand Traveler Behavior
+        ↓
+⭐ Analyze Ratings
+        ↓
+🏆 Discover Attractions
+        ↓
+🤖 Explore Predictions
+        ↓
+🎯 Generate Recommendations
 ```
 
 ---
 
-# 📈 Visual Storytelling
+# 🎨 Visual Analytics
 
-The dashboard focuses on visuals that help users move from **observation → interpretation → decision**.
+The application emphasizes visual storytelling through interactive charts such as:
 
-### KPI Layer
+* 📊 Bar charts
+* 📈 Trend charts
+* 🥧 Distribution charts
+* 🌍 Geographic analysis
+* 🔥 Correlation visualizations
+* 🎯 Recommendation outputs
+* 📋 Interactive tables
+* 📈 Model performance comparisons
 
-```text
-┌─────────────┬─────────────┬─────────────┬─────────────┐
-│ 👥 Travelers│ 🏛️ Attractions│ ⭐ Avg Rating│ 📊 Visits │
-└─────────────┴─────────────┴─────────────┴─────────────┘
-```
+Interactive visualizations allow users to filter, compare, investigate, and discover patterns.
 
-### Analytical Layer
+---
 
-```text
-📊 Distribution
-📈 Trends
-🗺️ Geography
-🏆 Rankings
-🔎 Relationships
-🧭 Segmentation
-```
+# 👥 Customer / Traveler Engagement
 
-### Predictive Layer
+The project is not limited to technical machine learning.
+
+It focuses on the traveler journey:
 
 ```text
-⭐ Rating Prediction
-🧭 Visit Mode Classification
-🎯 Recommendations
-🔍 Explainability
+Traveler
+   ↓
+Behavior
+   ↓
+Experience
+   ↓
+Rating
+   ↓
+Prediction
+   ↓
+Recommendation
+   ↓
+Better Discovery
 ```
+
+### Engagement Opportunities
+
+The platform can help tourism businesses:
+
+* Understand customer preferences
+* Discover popular experiences
+* Identify underperforming attractions
+* Personalize recommendations
+* Improve destination strategy
+* Support customer experience optimization
+
+---
+
+# 💼 Business Use Cases
+
+## 🏨 Hospitality
+
+Identify attraction preferences of different traveler segments.
+
+## ✈️ Travel Platforms
+
+Build recommendation experiences around traveler interests.
+
+## 🌍 Destination Management
+
+Identify high-performing and emerging tourism destinations.
+
+## 📣 Tourism Marketing
+
+Develop campaigns based on traveler origin and behavioral patterns.
+
+## 🎯 Personalization
+
+Recommend attractions based on similarity and traveler behavior.
+
+## 📊 Business Intelligence
+
+Monitor tourism performance through interactive analytics.
 
 ---
 
 # 🛠️ Technology Stack
 
-### 🐍 Programming
+### Programming
 
-* Python
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white)
 
-### 📊 Data Analytics
+### Data Analytics
 
-* Pandas
-* NumPy
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square\&logo=pandas\&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square\&logo=numpy\&logoColor=white)
 
-### 📈 Visualization
+### Visualization
 
-* Plotly
-* Matplotlib
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=flat-square\&logo=plotly\&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=flat-square)
 
-### 🤖 Machine Learning
+### Machine Learning
 
-* Scikit-learn
-* XGBoost
+![Scikit Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square\&logo=scikit-learn\&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-FF6600?style=flat-square)
 
-### 🔍 Explainable AI
+### Application
 
-* SHAP
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square\&logo=streamlit\&logoColor=white)
 
-### 🖥️ Application
-
-* Streamlit
-
-### 📓 Development
+### Development
 
 * Jupyter Notebook
 * Git
 * GitHub
-
-### 📁 Data
-
+* Python
 * Excel
-* Structured tourism datasets
 
 ---
 
-# 📁 Repository Structure
+# 📂 Project Structure
 
 ```text
 Tourism Experience Analytics/
 │
 ├── app.py
-├── Tourism Experience Analytics.ipynb
-├── README.md
-├── requirements.txt
-├── .gitignore
+│
+├── data/
+│   ├── Transaction.xlsx
+│   ├── User.xlsx
+│   ├── City.xlsx
+│   ├── Country.xlsx
+│   ├── Region.xlsx
+│   ├── Continent.xlsx
+│   ├── Mode.xlsx
+│   ├── Type.xlsx
+│   └── Updated_Item.xlsx
+│
+├── models/
+│   └── Trained ML Models
 │
 ├── artifacts/
-│   └── best_classifier.txt
+│   └── Model / Analytical Artifacts
 │
-├── pipeline/
-│   └── train_pipeline.py
+├── notebooks/
+│   └── Exploratory Analysis & Modeling
 │
-├── convert_classifier.py
-├── utils.py
+├── utils/
+│   └── Supporting Modules
 │
-├── .streamlit/
-│   └── config.toml
+├── screenshots/
+│   └── Dashboard Images
 │
-└── ...
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
-> Large raw datasets, credentials, API keys, environment files, and unnecessary generated files should remain outside the public repository.
+> **Note:** The exact folder structure may vary depending on the deployed version of the project.
 
 ---
 
-# ⚙️ Run Locally
+# ⚙️ Local Installation
 
-## 1. Clone
->>>>>>> 914fdf4d29592aa927cae4e3e28c76814d36f7af
-
-```bash
-git clone https://github.com/YOUR_USERNAME/Tourism-Experience-Analytics.git
-```
-
-<<<<<<< HEAD
-## Run locally
-=======
-## 2. Enter the project
+## 1. Clone Repository
 
 ```bash
-cd Tourism-Experience-Analytics
+git clone https://github.com/SUMANSANGEET/Tourism-Experience-Analytics_Classification-Prediction-and-Recommendation-System.git
 ```
 
-## 3. Create a virtual environment
+## 2. Navigate to Project
+
+```bash
+cd Tourism-Experience-Analytics_Classification-Prediction-and-Recommendation-System
+```
+
+## 3. Create Environment
 
 ```bash
 python -m venv venv
 ```
-
-## 4. Activate
 
 ### Windows
 
@@ -741,191 +789,199 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-### macOS / Linux
-
-```bash
-source venv/bin/activate
-```
-
-## 5. Install dependencies
->>>>>>> 914fdf4d29592aa927cae4e3e28c76814d36f7af
+## 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 6. Launch
+## 5. Launch Streamlit
 
 ```bash
 streamlit run app.py
 ```
 
-<<<<<<< HEAD
-## Deploy (Streamlit Community Cloud)
-
-Push this folder to a repo, point Streamlit Community Cloud at `app.py`, and
-deploy — no secrets needed. First load per session is a few seconds slower
-while the Model Performance page's split reconstruction runs the first time
-it's visited; every subsequent view is instant (cached for the life of the
-deployment).
-
-## Honest limitations (also shown in-app)
-
-- Rating regression R² sits around 0.11 — ratings cluster tightly at 4–5, so
-  there's limited variance left for location/time/category features to
-  explain.
-- Visit-mode classification weighted F1 is ≈ 0.47 on a 5-class, imbalanced
-  problem (Couples/Family vastly outnumber Business) — well above the ~0.20
-  random-guess baseline, but not high-precision.
-- The recommendation engine's collaborative-filtering half only has training
-  signal for the 30 attractions with transaction history; the content-based
-  and popularity paths (and the AI Trip Planner) fall back gracefully for
-  everything else in the full 1,698-attraction catalog.
-=======
----
-
-# 🎮 Interactive User Journey
-
-### 01 — Explore
-
-Start with the dashboard overview and understand the tourism ecosystem.
-
-### 02 — Investigate
-
-Drill down into traveler, attraction, geographic and behavioral patterns.
-
-### 03 — Compare
-
-Benchmark candidate machine-learning models.
-
-### 04 — Predict
-
-Generate an attraction-rating prediction.
-
-### 05 — Classify
-
-Predict the likely visit mode.
-
-### 06 — Recommend
-
-Generate relevant attractions.
-
-### 07 — Explain
-
-Inspect important model features and understand predictions.
+The application will open in your browser.
 
 ---
 
-# 💼 Business Use Cases
+# 🔐 Configuration
 
-## 🏨 Tourism Platforms
+If API keys, credentials, or secrets are required in future versions, store them securely using environment variables or Streamlit secrets.
 
-Improve destination and attraction discovery.
-
-## 🎯 Personalized Marketing
-
-Segment travelers and deliver targeted campaigns.
-
-## 🏛️ Attraction Management
-
-Identify high-performing and underperforming attractions.
-
-## ⭐ Experience Optimization
-
-Understand factors associated with attraction ratings.
-
-## 🌍 Destination Planning
-
-Identify geographic tourism patterns and opportunities.
-
-## 🤖 Intelligent Discovery
-
-Recommend relevant attractions to travelers.
-
----
-
-# 📌 Key Questions This Project Answers
-
-| Business Question                    | Analytics / ML Solution |
-| ------------------------------------ | ----------------------- |
-| Who are the travelers?               | Traveler analytics      |
-| Where do travelers come from?        | Geographic analysis     |
-| Which attractions perform best?      | Attraction analytics    |
-| What are the rating patterns?        | Rating analysis         |
-| Can ratings be predicted?            | Regression              |
-| Can visit mode be predicted?         | Classification          |
-| What should a traveler visit?        | Recommendation system   |
-| Why did the model make a prediction? | Explainability          |
-| Which model performs best?           | Model benchmarking      |
-
----
-
-# 🧠 End-to-End Skills Demonstrated
-
-### Data Analytics
-
-* Data cleaning
-* Exploratory Data Analysis
-* KPI development
-* Business interpretation
-* Statistical analysis
-* Interactive visualization
-
-### Machine Learning
-
-* Feature engineering
-* Regression
-* Classification
-* Model comparison
-* Model evaluation
-* Prediction
-
-### Recommendation Systems
-
-* Content-based recommendation
-* Similarity-based ranking
-* Cold-start fallback
-
-### Explainable AI
-
-* Feature importance
-* SHAP-based interpretation
-
-### Deployment
-
-* Streamlit
-* Model integration
-* Interactive dashboard development
-* Git/GitHub
-
----
-
-# 📊 From Data to Decision
-
-The core philosophy of the project is:
+Never commit:
 
 ```text
-             DATA
-              │
-              ▼
-          INSIGHTS
-              │
-              ▼
-          PATTERNS
-              │
-              ▼
-         PREDICTIONS
-              │
-              ▼
-       RECOMMENDATIONS
-              │
-              ▼
-       BUSINESS ACTION
+.env
+secrets.toml
+API keys
+Passwords
+Private credentials
 ```
 
-The goal is not simply to build a model.
+---
 
-The goal is to create an **end-to-end decision-support experience**.
+# 📸 Dashboard Preview
+
+Add your best application screenshots here.
+
+Recommended screenshots:
+
+### 🏠 Executive Dashboard
+
+```text
+screenshots/dashboard.png
+```
+
+### 📊 Exploratory Analytics
+
+```text
+screenshots/eda.png
+```
+
+### 🤖 Model Performance
+
+```text
+screenshots/model-performance.png
+```
+
+### 🎯 Recommendation Engine
+
+```text
+screenshots/recommendations.png
+```
+
+### 🧭 Classification
+
+```text
+screenshots/classification.png
+```
+
+Example Markdown:
+
+```markdown
+![Executive Dashboard](screenshots/dashboard.png)
+
+![Exploratory Analytics](screenshots/eda.png)
+
+![Model Performance](screenshots/model-performance.png)
+
+![Recommendation Engine](screenshots/recommendations.png)
+```
+
+---
+
+# 🧪 Analytical Workflow
+
+```text
+1. Data Collection
+        ↓
+2. Data Quality Audit
+        ↓
+3. Data Cleaning
+        ↓
+4. Data Integration
+        ↓
+5. Feature Engineering
+        ↓
+6. Exploratory Data Analysis
+        ↓
+7. Statistical / Behavioral Analysis
+        ↓
+8. Regression Modeling
+        ↓
+9. Classification Modeling
+        ↓
+10. Recommendation Engine
+        ↓
+11. Model Evaluation
+        ↓
+12. Streamlit Deployment
+        ↓
+13. Business Insights
+```
+
+---
+
+# 📌 Key Skills Demonstrated
+
+This project demonstrates practical capabilities in:
+
+### 📊 Data Analytics
+
+* Exploratory Data Analysis
+* Business KPI analysis
+* Trend analysis
+* Segmentation
+* Customer behavior analysis
+
+### 🐍 Python
+
+* Pandas
+* NumPy
+* Data preprocessing
+* Feature engineering
+* Automation
+
+### 📈 Visualization
+
+* Plotly
+* Interactive charts
+* Dashboard design
+* Visual storytelling
+
+### 🤖 Machine Learning
+
+* Regression
+* Classification
+* Model benchmarking
+* Feature engineering
+* Model evaluation
+
+### 🎯 Recommendation Systems
+
+* Content-based filtering
+* Similarity analysis
+* Personalized discovery
+
+### 🌐 Deployment
+
+* Streamlit
+* GitHub
+* Cloud deployment
+
+### 💼 Business Analytics
+
+* Problem framing
+* Insight generation
+* Decision support
+* Customer engagement analysis
+
+---
+
+# 📈 From Data to Decision
+
+The project's analytical philosophy is:
+
+```text
+DATA
+ ↓
+"What happened?"
+ ↓
+INSIGHT
+ ↓
+"Why did it happen?"
+ ↓
+PREDICTION
+ ↓
+"What may happen next?"
+ ↓
+RECOMMENDATION
+ ↓
+"What should we do?"
+```
+
+This transforms the project from a traditional data-analysis exercise into an **end-to-end analytics and decision-support platform**.
 
 ---
 
@@ -933,71 +989,109 @@ The goal is to create an **end-to-end decision-support experience**.
 
 Potential next-generation improvements include:
 
-* 🔄 Real-time tourism data APIs
-* 🤝 Hybrid recommendation systems
-* 🧠 Collaborative filtering
-* 🗺️ Advanced geospatial analytics
-* 📈 Tourism demand forecasting
-* 👥 Advanced traveler clustering
-* 💬 Review sentiment analysis
-* ☁️ Cloud database integration
-* 🔁 Automated model retraining
-* 📊 MLflow experiment tracking
-* 🔐 Role-based dashboard access
-* ⚡ Real-time recommendation APIs
+* 🧠 Advanced personalized recommendation models
+* 👥 Traveler segmentation using clustering
+* 🌍 Interactive geographic maps
+* 📅 Tourism demand forecasting
+* ⭐ Sentiment analysis of traveler reviews
+* 🔍 SHAP-based model explainability
+* 📱 Mobile-friendly experience
+* ☁️ Automated data pipelines
+* 🔄 Real-time tourism data ingestion
+* 🎯 Personalized traveler profiles
+* 📊 Advanced KPI monitoring
+* 🤖 Conversational tourism analytics assistant
 
 ---
 
-# 🏆 Project Highlights
+# 🏆 Project Impact
+
+### The platform combines three major analytical capabilities:
 
 ```text
-┌────────────────────────────────────────────────────────┐
-│                 TOURISM ANALYTICS                      │
-├────────────────────────────────────────────────────────┤
-│                                                        │
-│  📊 EDA                  → Understand                  │
-│  🧹 Data Engineering     → Prepare                    │
-│  📈 Visualization        → Discover                   │
-│  ⭐ Regression           → Predict                    │
-│  🧭 Classification       → Segment                    │
-│  🎯 Recommendation       → Personalize                │
-│  🔍 Explainability       → Understand Why             │
-│  🖥️ Streamlit            → Deploy                     │
-│                                                        │
-└────────────────────────────────────────────────────────┘
+             TOURISM ANALYTICS
+                    │
+       ┌────────────┼────────────┐
+       ▼            ▼            ▼
+   UNDERSTAND    PREDICT     RECOMMEND
+       │            │            │
+       ▼            ▼            ▼
+    Traveler      Rating       Relevant
+    Behavior      / Mode       Attractions
+       │            │            │
+       └────────────┼────────────┘
+                    ▼
+             BETTER DECISIONS
+                    │
+                    ▼
+          BETTER CUSTOMER EXPERIENCE
 ```
 
 ---
 
-# 👨‍💻 Author
+# 💼 Recruiter Snapshot
 
-## **Suman Sangeet**
+### What this project demonstrates
 
-🎓 **PGDM — Big Data Analytics**
-
-### Areas of Interest
-
-`Data Analytics` • `Business Intelligence` • `Python` • `SQL` • `Machine Learning` • `Power BI` • `Data Visualization` • `AI`
-
----
-
-# 🚀 Explore the Project
-
-### 🌐 Live Application
-
-**[👉 Launch Tourism Experience Analytics](https://ida8jsmnknyqdvtkqeafcd.streamlit.app/)**
-
-### 💻 Source Code
-
-**[👉 Explore the GitHub Repository](https://github.com/YOUR_USERNAME/Tourism-Experience-Analytics)**
+| Area              | Demonstrated Capability                        |
+| ----------------- | ---------------------------------------------- |
+| Data Analytics    | EDA, behavioral analysis, KPI development      |
+| Data Preparation  | Cleaning, integration, feature engineering     |
+| Visualization     | Interactive dashboards and visual storytelling |
+| Machine Learning  | Regression + Classification                    |
+| Recommendation    | Content-based attraction recommendations       |
+| Business Thinking | Tourism and customer-experience use cases      |
+| Deployment        | Streamlit cloud application                    |
+| Engineering       | Modular project structure                      |
+| Version Control   | Git + GitHub                                   |
 
 ---
 
-# ⭐ Final Takeaway
+# 👨‍💻 About the Project
 
-> ### **Raw Tourism Data → Interactive Analytics → Predictive Intelligence → Personalized Recommendations → Business Decisions**
+**Project:** Tourism Experience Analytics — Classification, Prediction & Recommendation System
 
-This project demonstrates the complete journey from **data preparation and exploratory analysis to machine learning, explainability, recommendation systems and production-style interactive deployment**.
+**Focus:** Data Analytics • Machine Learning • Business Intelligence • Recommendation Systems
 
-**Built with Python • Pandas • Scikit-learn • XGBoost • Plotly • SHAP • Streamlit**
->>>>>>> 914fdf4d29592aa927cae4e3e28c76814d36f7af
+**Deployment:** Streamlit
+
+**Repository:**
+[GitHub Repository](https://github.com/SUMANSANGEET/Tourism-Experience-Analytics_Classification-Prediction-and-Recommendation-System)
+
+**Live Application:**
+[Launch Interactive App](https://ida8jsmnknyqdvtkqeafcd.streamlit.app/)
+
+---
+
+# ⭐ If You Find This Project Interesting
+
+Explore the interactive application and repository.
+
+If you find the project useful:
+
+⭐ Star the repository
+🍴 Fork the project
+💬 Share feedback
+🔗 Connect for collaboration
+
+---
+
+## 🚀 Explore the Project
+
+<p align="center">
+
+<a href="https://ida8jsmnknyqdvtkqeafcd.streamlit.app/">
+<img src="https://img.shields.io/badge/🚀%20EXPLORE%20LIVE%20APPLICATION-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Explore Live Application"/>
+</a>
+
+ 
+
+<a href="https://github.com/SUMANSANGEET/Tourism-Experience-Analytics_Classification-Prediction-and-Recommendation-System">
+<img src="https://img.shields.io/badge/⭐%20VIEW%20SOURCE%20CODE-181717?style=for-the-badge&logo=github&logoColor=white" alt="View Source Code"/>
+</a>
+
+</p>
+
+---
+
+### 📌 Built as an end-to-end analytics project focused on turning tourism data into actionable insights, predictive intelligence, and personalized customer experiences.
